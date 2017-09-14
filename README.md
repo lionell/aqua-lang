@@ -13,7 +13,8 @@ Aqua-lang data processing language inspired by [Kusto(Azure Log Analytics)](http
 ## EBNF
 
 ```ebnf
-statement = relation , { "|" , operator }
+statement = relation , { "|" , operator } ;
+relation = "test" ;
 <Statement> ::= <Relation> {"|" <Operator>}
 <Operator>  ::= <OrderByOperator>
               | <WhereOperator>
