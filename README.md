@@ -12,7 +12,7 @@ Aqua-lang data processing language inspired by [Kusto(Azure Log Analytics)](http
 
 ## EBNF
 
-```(bnf)
+```ebnf
 <Statement> ::= <Relation> {"|" <Operator>}
 <Operator>  ::= <OrderByOperator>
               | <WhereOperator>
@@ -25,26 +25,26 @@ Aqua-lang data processing language inspired by [Kusto(Azure Log Analytics)](http
 
 ## Order by
 
-```(bnf)
+```ebnf
 <OrderByOperator>     ::= "order by" <AttributeOrderPair> {"," <AttributeOrderPair>}
 <AttributeOrderPair>  ::= <Attribute> ["asc" | "desc"]
 ```
 
 Example
 
-```(sql)
+```sql
 T | order by country asc, price desc
 ```
 
 ## Where
 
-```(bnf)
+```ebnf
 <WhereOperator> ::= "where" <Predicate>
 ```
 
 Example
 
-```(sql)
+```sql
 T
 | where fruit == "apple"
 | where weight < 10 and available == true
@@ -52,7 +52,7 @@ T
 
 ## Project
 
-```(bnf)
+```ebnf
 <ProjectOperator>               ::= "project" <AttributeOrNamedExpression> ["," <AttributeOrNamedExpression>]
 <AttributeOrNamedExpression>    ::= <Attribute>
                                   | <NamedExpression>
@@ -61,13 +61,13 @@ T
 
 Example
 
-```(sql)
+```sql
 T | project cost=price*quantity, price
 ```
 
 ## Others
 
-```(bnf)
+```ebnf
 <DistinctOperator>  ::= "distinct" <AttributeList>
 <TakeOperator>      ::= "take" <Number>
 <JoinOperator>      ::= "join" <Relation> "on" <JoinCondition> {"," <JoinCondition>}
