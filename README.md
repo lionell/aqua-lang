@@ -21,6 +21,7 @@ operator  = order by operator
           | take operator
           | join operator
           | union operator ;
+statement = relation , { "|" , operator } ;
 <Statement> ::= <Relation> {"|" <Operator>}
 <Operator>  ::= <OrderByOperator>
               | <WhereOperator>
