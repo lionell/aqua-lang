@@ -13,21 +13,21 @@ Aqua-lang data processing language inspired by [Kusto(Azure Log Analytics)](http
 ## EBNF
 
 ```ebnf
-statement   = relation, { "|", operator } ;
-operator    = order by operator
-            | where operator
-            | project operator
-            | distinct operator
-            | take operator
-            | join operator
-            | union operator ;
+statement = relation, { "|", operator } ;
+operator  = order by operator
+          | where operator
+          | project operator
+          | distinct operator
+          | take operator
+          | join operator
+          | union operator ;
 ```
 
 ## Order by
 
 ```ebnf
-order by operator       = "order by", attribute order pair, { ",", attribute order pair } ;
-attribute order pair    = attribute, [ "asc" | "desc" ] ;
+order by operator    = "order by", attribute order pair, { ",", attribute order pair } ;
+attribute order pair = attribute, [ "asc" | "desc" ] ;
 ```
 
 Example
@@ -39,7 +39,7 @@ T | order by country asc, price desc
 ## Where
 
 ```ebnf
-<WhereOperator> ::= "where" <Predicate>
+where operator = "where", predicate ;
 ```
 
 Example
@@ -53,10 +53,10 @@ T
 ## Project
 
 ```ebnf
-<ProjectOperator>               ::= "project" <AttributeOrNamedExpression> ["," <AttributeOrNamedExpression>]
-<AttributeOrNamedExpression>    ::= <Attribute>
-                                  | <NamedExpression>
-<NamedExpression>               ::= <Attribute> "=" <Expression>
+project operator              = "project", attribute or name expression, [ ",", attribute or named expression ] ;
+attribute or named expression = attribute
+                              | named expression ;
+named expression              = attribute, "=", expression ;
 ```
 
 Example
