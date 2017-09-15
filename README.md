@@ -13,14 +13,14 @@ Aqua-lang data processing language inspired by [Kusto(Azure Log Analytics)](http
 ## EBNF
 
 ```ebnf
-statement = relation , { "|" , operator }
+statement = relation , { "|" , operator } ;
 operator  = order by operator
           | where operator
           | project operator
           | distinct operator
           | take operator
           | join operator
-          | union operator
+          | union operator ;
 <Statement> ::= <Relation> {"|" <Operator>}
 <Operator>  ::= <OrderByOperator>
               | <WhereOperator>
