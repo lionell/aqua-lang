@@ -22,7 +22,7 @@ operator  = order by operator
           | union operator ;
 ```
 
-### Project
+### Project operator
 
 Select the columns to include, rename or drop, and insert new computed columns.
 
@@ -31,9 +31,9 @@ The order of the columns in the result is specified by the order of the argument
 ```sql
 Fruits
 | project
-    price,               // Output column
-    cost=price*quantity, // Compose new column
-    count=quantitiy      // Rename column
+    price,               -- Just project
+    cost=price*quantity, -- Compose new column
+    count=quantitiy      -- Rename column
 ```
 
 ### Syntax
@@ -43,7 +43,13 @@ project operator  = "project", new attribute, { ",", new attribute } ;
 new attribute     = attribute, [ "=", expression ] ;
 ```
 
-### Where
+### Where operator
+
+```sql
+Fruits
+| where name == "apple"
+| where weight < 10 and available == true
+```
 
 ```ebnf
 where operator = "where", predicate ;
@@ -51,11 +57,6 @@ where operator = "where", predicate ;
 
 Example
 
-```sql
-Fruits
-| where name == "apple"
-| where weight < 10 and available == true
-```
 
 ### Join
 
