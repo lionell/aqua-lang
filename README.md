@@ -32,7 +32,7 @@ new attribute     = attribute, [ "=", expression ] ;
 Example
 
 ```sql
-T | project cost=price*quantity, price
+Fruits | project cost=price*quantity, price
 ```
 
 ### Where
@@ -44,8 +44,8 @@ where operator = "where", predicate ;
 Example
 
 ```sql
-T
-| where fruit == "apple"
+Fruits
+| where name == "apple"
 | where weight < 10 and available == true
 ```
 
@@ -58,20 +58,20 @@ join operator = "join", [ join parameters ], relation, "on", attribute ;
 Example
 
 ```sql
-T | join T1 on id
+Fruits | join Market on id
 ```
 
 ### Order by
 
 ```ebnf
-order by operator    = "order by", attribute order, { ",", attribute order } ;
-attribute order = attribute, [ "asc" | "desc" ] ;
+order by operator = "order by", attribute order, { ",", attribute order } ;
+attribute order   = attribute, [ "asc" | "desc" ] ;
 ```
 
 Example
 
 ```sql
-T | order by country asc, price desc
+Fruits | order by weight desc, price asc
 ```
 
 ### Distinct
@@ -83,15 +83,26 @@ distinct operator = "distinct", attribute, [ ",", attribute ] ;
 Example
 
 ```sql
-T | distinct fruit, availability
+Fruits | distinct name, availability
 ```
 
 ### Take
 
+```ebnf
+take operator = "take" number ;
+```
+
+Example
+
+```sql
+Fruits
+| order by price asc
+| take 10
+```
+
 ### Others
 
 ```ebnf
-<TakeOperator>      ::= "take" <Number>
 <JoinOperator>      ::= "join" <Relation> "on" <JoinCondition> {"," <JoinCondition>}
 <JoinCondition>     ::= <Relation> "." <Attribute> "==" <Relation> "." <Attribute>
 <UnionOperator>     ::= "union" <Relation> {"," <Relation>}
