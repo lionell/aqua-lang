@@ -24,15 +24,23 @@ operator  = order by operator
 
 ### Project
 
+Select the columns to include, rename or drop, and insert new computed columns.
+
+The order of the columns in the result is specified by the order of the arguments. Only the columns specified in the arguments are included in the result: any others in the input are dropped.
+
+```sql
+Fruits
+| project
+    price,               // Output column
+    cost=price*quantity, // Compose new column
+    count=quantitiy      // Rename column
+```
+
+### Syntax
+
 ```ebnf
 project operator  = "project", new attribute, { ",", new attribute } ;
 new attribute     = attribute, [ "=", expression ] ;
-```
-
-Example
-
-```sql
-Fruits | project cost=price*quantity, price
 ```
 
 ### Where
@@ -102,7 +110,6 @@ Fruits
 take operator = "take" number ;
 ```
 
-
 ### Others
 
 ```ebnf
@@ -119,10 +126,14 @@ take operator = "take" number ;
                   | "*"
 ```
 
-## Assignment coverage
+## School assignment coverage
 
 0+, 1+, 2+, 3-, 4-, 5+, 6?(unconditioned join), 7+, 8+, 9+
 
 ## TODO
 
 - Provide more meaningful examples in README
+
+## Note
+
+Some information on this README page is taken from [Language Reference](https://docs.loganalytics.io/docs/Language-Reference).
