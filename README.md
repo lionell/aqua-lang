@@ -4,11 +4,10 @@ Aqua-lang data processing language inspired by [Kusto(Azure Log Analytics)](http
 
 ## Supported datatypes
 
-- int32
-- int64
-- float64
-- char
-- string
+- [x] int64
+- [ ] float64
+- [ ] char
+- [x] string
 
 ## EBNF
 
@@ -23,20 +22,20 @@ operator  = order by operator
           | union operator ;
 ```
 
-## Order by
+### Project
 
 ```ebnf
-order by operator    = "order by", attribute order pair, { ",", attribute order pair } ;
-attribute order pair = attribute, [ "asc" | "desc" ] ;
+project operator  = "project", new attribute, { ",", new attribute } ;
+new attribute     = attribute, [ "=", expression ] ;
 ```
 
 Example
 
 ```sql
-T | order by country asc, price desc
+T | project cost=price*quantity, price
 ```
 
-## Where
+### Where
 
 ```ebnf
 where operator = "where", predicate ;
@@ -50,25 +49,48 @@ T
 | where weight < 10 and available == true
 ```
 
-## Project
+### Join
 
 ```ebnf
-project operator              = "project", attribute or name expression, [ ",", attribute or named expression ] ;
-attribute or named expression = attribute
-                              | named expression ;
-named expression              = attribute, "=", expression ;
+join operator = "join", [ join parameters ], relation, "on", attribute ;
 ```
 
 Example
 
 ```sql
-T | project cost=price*quantity, price
+T | join T1 on id
 ```
 
-## Others
+### Order by
 
 ```ebnf
-<DistinctOperator>  ::= "distinct" <AttributeList>
+order by operator    = "order by", attribute order, { ",", attribute order } ;
+attribute order = attribute, [ "asc" | "desc" ] ;
+```
+
+Example
+
+```sql
+T | order by country asc, price desc
+```
+
+### Distinct
+
+```ebnf
+distinct operator = "distinct", attribute, [ ",", attribute ] ;
+```
+
+Example
+
+```sql
+T | distinct fruit, availability
+```
+
+### Take
+
+### Others
+
+```ebnf
 <TakeOperator>      ::= "take" <Number>
 <JoinOperator>      ::= "join" <Relation> "on" <JoinCondition> {"," <JoinCondition>}
 <JoinCondition>     ::= <Relation> "." <Attribute> "==" <Relation> "." <Attribute>
