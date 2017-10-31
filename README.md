@@ -86,19 +86,22 @@ Example
 Fruits | distinct name, availability
 ```
 
-### Take
+### Take operator
 
-```ebnf
-take operator = "take" number ;
-```
-
-Example
+Return up to the specified number of rows.
 
 ```sql
 Fruits
 | order by price asc
 | take 10
 ```
+
+#### Syntax
+
+```ebnf
+take operator = "take" number ;
+```
+
 
 ### Others
 
