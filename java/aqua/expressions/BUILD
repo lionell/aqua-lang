@@ -1,6 +1,6 @@
 java_library(
-    name = "predicate",
-    srcs = ["Predicate.java"],
+    name = "condition",
+    srcs = ["Condition.java"],
     visibility = ["//java/aqua:__subpackages__"],
     deps = [
         "//java/aqua/datatypes",

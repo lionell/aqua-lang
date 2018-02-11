@@ -9,7 +9,7 @@ Aqua-lang data processing language inspired by [Kusto(Azure Log Analytics)](http
 - [ ] char
 - [x] string
 
-## EBNF
+## Extended BNF
 
 ```ebnf
 statement = relation, { "|", operator } ;
@@ -36,7 +36,7 @@ Fruits
     count=quantitiy      -- Rename column
 ```
 
-### Syntax
+#### Syntax
 
 ```ebnf
 project operator  = "project", new attribute, { ",", new attribute } ;
@@ -45,32 +45,38 @@ new attribute     = attribute, [ "=", expression ] ;
 
 ### Where operator
 
+Filters a table to the subset of rows that satisfy a predicate.
+
 ```sql
 Fruits
 | where name == "apple"
 | where weight < 10 and available == true
 ```
 
+#### Syntax
+
 ```ebnf
-where operator = "where", predicate ;
+where operator = "where", condition ;
 ```
 
-Example
+### Join operator
 
+Merge the rows of two tables to form a new table by matching values of the specified column(s) from each table.
 
-### Join
+```sql
+Fruits
+| join Market on id
+| order by name asc, price desc
+```
+
+#### Syntax
 
 ```ebnf
 join operator = "join", [ join parameters ], relation, "on", attribute ;
+join parameters = "kind", "=", [ "inner" | "outer" | "full" ] ;
 ```
 
-Example
-
-```sql
-Fruits | join Market on id
-```
-
-### Order by
+### Order-by operator
 
 ```ebnf
 order by operator = "order by", attribute order, { ",", attribute order } ;
